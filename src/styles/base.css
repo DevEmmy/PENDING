@@ -83,7 +83,7 @@ img { max-width: 100%; display: block; }
 .xs { font-size: var(--fs-xs); }
 .bold { font-weight: 700; }
 .nowrap { white-space: nowrap; }
-.text-success { color: var(--green-600); }
+.text-success { color: var(--green-700); }
 .text-danger { color: var(--red-600); }
 .text-warning { color: var(--orange-700); }
 
@@ -103,4 +103,10 @@ img { max-width: 100%; display: block; }
     transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Links inside running text are underlined so they're not distinguished by colour alone (WCAG 1.4.1) */
+p a, li a:not([class]), .auth-link a, .help a, .alert a:not(.btn) {
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

@@ -115,9 +115,9 @@ export default function NewSale() {
                   const inCart = cart.find((l) => l.product.id === p.id);
                   const out = stockStatus(p) === 'out';
                   return (
-                    <button key={p.id} className={`product-tile ${inCart ? 'in-cart' : ''}`} onClick={() => add(p)} disabled={out}
-                      aria-label={`${p.name}, ${naira(p.price)}, ${quantity(p.stock_quantity, p.unit)} in stock${inCart ? `, ${inCart.qty} in sale` : ''}`}>
+                    <button key={p.id} className={`product-tile ${inCart ? 'in-cart' : ''}`} onClick={() => add(p)} disabled={out}>
                       {inCart && <span className="qty-badge" aria-hidden="true">{inCart.qty}</span>}
+                      {inCart && <span className="sr-only">{inCart.qty} in this sale. </span>}
                       <strong>{p.name}</strong>
                       <span className="tabular">{naira(p.price)}</span>
                       <span className={`xs ${out ? 'text-danger' : stockStatus(p) === 'low' ? 'text-warning' : 'muted'}`}>{out ? 'Out of stock' : `${quantity(p.stock_quantity, p.unit)} left`}</span>

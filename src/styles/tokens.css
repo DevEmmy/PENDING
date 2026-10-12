@@ -34,7 +34,7 @@
   --orange-500: #f59e0b;
   --orange-600: #ea7a0c;
   --orange-100: #ffedd5;
-  --orange-700: #b45309;
+  --orange-700: #9a4508;
   --red-600: #dc2626;
   --red-100: #fee2e2;
   --red-700: #b91c1c;
@@ -48,7 +48,7 @@
   --border-strong: #cbd5e1;
   --text: #0f172a;
   --text-2: #334155;
-  --muted: #64748b;
+  --muted: #56657a; /* ≥4.5:1 on --bg and --surface-muted */
   --muted-2: #94a3b8;
   --on-dark: #ffffff;
   --on-dark-muted: #9cc0ff;

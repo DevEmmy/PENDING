@@ -8,7 +8,18 @@ const base = process.env.VITE_BASE ?? '/VENDORA/';
 export default defineConfig({
   base,
   plugins: [react()],
-  build: { sourcemap: false, target: 'es2020' },
+  build: {
+    sourcemap: false,
+    target: 'es2020',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          supabase: ['@supabase/supabase-js'],
+        },
+      },
+    },
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],

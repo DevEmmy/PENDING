@@ -44,7 +44,7 @@ export function AppShell({ children }: { children?: ReactNode }) {
       {mode === 'demo' && (
         <div className="demo-banner" role="note">
           Demo shop — sample data, saved only in this browser tab.{' '}
-          <button className="btn-ghost" style={{ background: 'none', border: 0, textDecoration: 'underline', fontWeight: 800, cursor: 'pointer' }}
+          <button className="demo-leave"
             onClick={() => { exitDemo(); navigate('/welcome'); }}>Leave demo</button>
         </div>
       )}

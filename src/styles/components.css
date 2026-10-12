@@ -503,3 +503,5 @@ button.list-row:active, a.list-row:active { transform: scale(0.995); }
 .progress > span { display: block; height: 100%; background: var(--button-gradient); border-radius: 99px; transition: width var(--t-med) var(--ease-out); }
 .progress.on-dark { background: rgba(255,255,255,0.15); }
 .progress.on-dark > span { background: var(--yellow-400); }
+
+.demo-leave { background: none; border: 0; color: var(--navy-950); text-decoration: underline; font-weight: 800; padding: 4px; min-height: 32px; }

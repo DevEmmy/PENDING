@@ -28,8 +28,9 @@ async function signUp(db: SupabaseClient, name: string, lang = 'en') {
 }
 
 describe.skipIf(!LIVE)('live data layer against Supabase Auth + PostgREST', () => {
-  const ada = client();
-  const chidi = client();
+  // Created in beforeAll so collecting this file never needs a configured stack.
+  let ada: SupabaseClient;
+  let chidi: SupabaseClient;
   let adaApi: SupabaseBusinessApi;
   let chidiApi: SupabaseBusinessApi;
   let adaBiz = '';
@@ -38,6 +39,8 @@ describe.skipIf(!LIVE)('live data layer against Supabase Auth + PostgREST', () =
   let saleId = '';
 
   beforeAll(async () => {
+    ada = client();
+    chidi = client();
     const a = await signUp(ada, 'ada', 'pcm');
     const c = await signUp(chidi, 'chidi');
     expect(a.session, 'autoconfirmed session for Ada').toBeTruthy();

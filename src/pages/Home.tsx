@@ -46,7 +46,7 @@ export default function Home() {
         eyebrow={<>{greeting()} <span aria-hidden="true">👋</span></>}
         title={name}
         subtitle={[biz?.name, biz?.market_area].filter(Boolean).join(' · ')}
-        actions={<Link to="/profile" className="avatar" aria-label="Profile and settings">{initials(name)}</Link>}
+        actions={<Link to="/profile" className="avatar" aria-label={`${initials(name)} — profile and settings`}>{initials(name)}</Link>}
       />
       <div className="page-body overlap-body">
         <section className="card today-card" aria-labelledby="today-label">

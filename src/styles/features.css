@@ -265,11 +265,11 @@
 .advice-card { border-radius: var(--r-lg); padding: var(--s-4); display: flex; flex-direction: column; gap: var(--s-2); border-top: 4px solid var(--accent); background: var(--tint); }
 .advice-card h3 { font-size: var(--fs-md); }
 .advice-card p { font-size: var(--fs-sm); color: var(--text-2); }
-.advice-orange { --accent: var(--orange-500); --tint: #fff4e5; }
-.advice-blue { --accent: var(--blue-500); --tint: #eef4ff; }
-.advice-green { --accent: var(--green-500); --tint: #e8f9ef; }
-.advice-red { --accent: var(--red-600); --tint: #fdeeee; }
-.advice-card .btn { align-self: flex-start; color: #fff; background: var(--accent); min-height: 36px; font-size: var(--fs-sm); }
+.advice-orange { --accent: var(--orange-500); --tint: #fff4e5; --btn: #b45309; }
+.advice-blue { --accent: var(--blue-500); --tint: #eef4ff; --btn: var(--blue-600); }
+.advice-green { --accent: var(--green-500); --tint: #e8f9ef; --btn: var(--green-700); }
+.advice-red { --accent: var(--red-600); --tint: #fdeeee; --btn: var(--red-700); }
+.advice-card .btn { align-self: flex-start; color: #fff; background: var(--btn); min-height: 36px; font-size: var(--fs-sm); }
 .metric-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-3); }
 @media (min-width: 720px) { .metric-grid { grid-template-columns: repeat(4, 1fr); } }
 .metric { background: var(--surface); border-radius: var(--r-lg); box-shadow: var(--shadow-card); padding: var(--s-4); }

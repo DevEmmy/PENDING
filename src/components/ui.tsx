@@ -161,7 +161,12 @@ export function AnimatedNaira({ value, className, compactFrom }: { value: number
     return () => cancelAnimationFrame(raf);
   }, [value]);
   const text = compactFrom !== undefined && Math.abs(value) >= compactFrom ? nairaCompact(shown) : naira(shown);
-  return <span className={`tabular ${className ?? ''}`} aria-label={naira(value)} title={naira(value)}><span aria-hidden="true">{text}</span></span>;
+  return (
+    <span className={`tabular ${className ?? ''}`} title={naira(value)}>
+      <span className="sr-only">{naira(value)}</span>
+      <span aria-hidden="true">{text}</span>
+    </span>
+  );
 }
 
 /* ---------------- Sheet (modal / bottom sheet) ---------------- */
