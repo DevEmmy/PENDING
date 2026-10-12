@@ -344,4 +344,19 @@ do $$ begin
   assert (select verification_status from public.vendor_profiles where business_id = current_setting('test.biz_a')::uuid) = 'verified';
 end $$;
 
+\echo '18. TTS quota: service role only, capped per day'
+set role authenticated;
+select tests.expect_error($q$select public.consume_tts_quota(auth.uid(), 10, 100)$q$, 'permission denied');
+reset role;
+set role service_role;
+do $$ begin
+  assert public.consume_tts_quota('00000000-0000-0000-0000-00000000000a', 20, 2);
+  assert public.consume_tts_quota('00000000-0000-0000-0000-00000000000a', 20, 2);
+  assert not public.consume_tts_quota('00000000-0000-0000-0000-00000000000a', 20, 2), 'third call should be refused';
+end $$;
+reset role;
+do $$ begin
+  assert (select request_count from public.tts_usage where user_id = '00000000-0000-0000-0000-00000000000a') = 2;
+end $$;
+
 \echo 'ALL DATABASE TESTS PASSED'
