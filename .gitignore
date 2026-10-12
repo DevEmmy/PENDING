@@ -1,0 +1,12 @@
+node_modules
+dist
+.env
+.env.local
+.env.*.local
+supabase/.temp
+supabase/.branches
+supabase/functions/.env
+*.log
+.DS_Store
+coverage
+test-results
