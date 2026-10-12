@@ -19,6 +19,7 @@ export type Parsed =
   | { intent: 'debt'; customer: string; amount: number | null }
   | { intent: 'debt_payment'; customer: string; amount: number | null }
   | { intent: 'customer_balance'; customer: string }
+  | { intent: 'debtors' }
   | { intent: 'stock_query'; phrase: string }
   | { intent: 'low_stock' }
   | { intent: 'sales_summary'; period: Period; focus: 'sales' | 'profit' }
@@ -145,6 +146,8 @@ export function parse(text: string): Parsed {
   // Vendor discovery questions ("who sell rice?") read like sales, so check them first.
   const vendorFirst = s.match(/^(?:who (?:dey )?sells?|where (?:i fit|can i|to) buy|find|search(?: for)?|look for)\s+(.+)$/);
   if (vendorFirst) return { intent: 'vendor_search', query: vendorFirst[1].replace(/\b(supplier|suppliers|vendor|vendors|wholesale|wholesaler)\b/g, ' ').replace(/\s+/g, ' ').trim() };
+
+  if (/\b(who (?:dey |still )?owes?(?: me)?|who never pay|money owed|my debtors|people wey dey owe)\b/.test(s)) return { intent: 'debtors' };
 
   // Debt payment: "Emeka paid 5000" / "Emeka don pay me 5k"
   const pay = s.match(/^([a-z]+(?:\s+[a-z]+)?)\s+(?:has\s+)?(?:paid|pay|don pay|payed|settled|sanwo|kwuru|ya biya)\s+(?:me\s+|back\s+)?(\d+)?/);

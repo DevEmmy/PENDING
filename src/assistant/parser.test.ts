@@ -63,6 +63,7 @@ describe('parse — answers and other intents', () => {
     ['Mama Chidi don pay me 2k', { intent: 'debt_payment', customer: 'mama chidi', amount: 2000 }],
     ['Emeka owes me 5k', { intent: 'debt', customer: 'emeka', amount: 5000 }],
     ['How much Emeka owe?', { intent: 'customer_balance', customer: 'emeka' }],
+    ['Who owes me money?', { intent: 'debtors' }],
     ['How much Indomie remain?', { intent: 'stock_query', phrase: 'indomie' }],
     ['how many bags of rice do i have left', { intent: 'stock_query' }],
     ['How market today?', { intent: 'sales_summary', period: 'today', focus: 'sales' }],

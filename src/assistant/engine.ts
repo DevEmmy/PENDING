@@ -331,6 +331,13 @@ async function answer(p: Parsed, ctx: EngineContext): Promise<Turn> {
       if (stockStatus(prod) !== 'in') reply += t(lang, ' Time to restock.', ' Restock soon.');
       return { ...base, intent: 'stock_query', reply };
     }
+    case 'debtors': {
+      const owing = ctx.customers.filter((c) => c.balance > 0).sort((a, b) => b.balance - a.balance);
+      if (!owing.length) return { ...base, intent: 'debtors', reply: t(lang, 'Nobody owes you money right now.', 'Nobody dey owe you now.') };
+      const total = owing.reduce((a, c) => a + c.balance, 0);
+      const list = owing.slice(0, 5).map((c) => `${c.name} (${naira(c.balance)})`).join(', ');
+      return { ...base, intent: 'debtors', reply: t(lang, `${owing.length} customer${owing.length === 1 ? ' owes' : 's owe'} you ${naira(total)}: ${list}.`, `${owing.length} customer dey owe you ${naira(total)}: ${list}.`), navigate: undefined };
+    }
     case 'low_stock': {
       const low = ctx.products.filter((x) => !x.archived_at && stockStatus(x) !== 'in').sort((a, b) => a.stock_quantity - b.stock_quantity);
       if (!low.length) return { ...base, intent: 'low_stock', reply: t(lang, 'Nothing is running low right now.', 'Nothing dey finish for now.') };
@@ -460,7 +467,7 @@ export async function handle(text: string, state: EngineState, ctx: EngineContex
     }
     if (p.intent === 'yes') return advance(d, ctx);
     // A brand-new command replaces the pending draft (nothing had been recorded).
-    if (!['sale', 'restock', 'debt', 'debt_payment', 'stock_query', 'low_stock', 'sales_summary', 'navigate', 'vendor_search', 'customer_balance', 'slow_items', 'top_items', 'help'].includes(p.intent)) {
+    if (!['sale', 'restock', 'debt', 'debt_payment', 'stock_query', 'low_stock', 'sales_summary', 'navigate', 'vendor_search', 'customer_balance', 'slow_items', 'top_items', 'help', 'debtors'].includes(p.intent)) {
       const again = advance(d, ctx);
       return { ...again, reply: t(lang, "Sorry, I didn't catch that. ", 'Sorry, I no catch am. ') + again.reply };
     }

@@ -1,3 +1,5 @@
+import { quantity } from './format';
+
 /** A user-facing error: `message` explains what happened and what to do next. */
 export class AppError extends Error {
   code: string;
@@ -67,8 +69,12 @@ export function toAppError(e: unknown, fallback = 'That did not work. Please try
   const err = (e ?? {}) as PgLikeError;
   const code = err.message && FRIENDLY[err.message] ? err.message : null;
   if (code) {
-    // RPCs put a specific, human explanation in HINT ("Only 3 bags of Rice left.").
-    return new AppError(code, err.hint || FRIENDLY[code], { detail: parseDetail(err.details) });
+    const detail = parseDetail(err.details);
+    if (code === 'INSUFFICIENT_STOCK' && detail && typeof detail.available === 'number' && typeof detail.unit === 'string') {
+      return new AppError(code, `Only ${quantity(detail.available, detail.unit)} of ${String(detail.name)} left.`, { detail });
+    }
+    // RPCs put a specific, human explanation in HINT.
+    return new AppError(code, err.hint || FRIENDLY[code], { detail });
   }
   if (err.code === '42501' || /permission denied|row-level security/i.test(err.message ?? '')) {
     return new AppError('FORBIDDEN', FRIENDLY.FORBIDDEN);

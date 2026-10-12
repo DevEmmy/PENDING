@@ -1,5 +1,5 @@
 import { AppError } from '../lib/errors';
-import { lagosDayKey } from '../lib/format';
+import { lagosDayKey, quantity } from '../lib/format';
 import { newId } from '../lib/ids';
 import type {
   Customer, DashboardSummary, DebtResult, DebtTransaction, InventoryMovement, Invoice, NewProductInput,
@@ -234,7 +234,7 @@ export class DemoBusinessApi implements BusinessApi {
       if (price < 0) throw new AppError('INVALID_INPUT', 'Prices cannot be negative.');
       needed.set(p.id, (needed.get(p.id) ?? 0) + it.quantity);
       if (p.stock_quantity < needed.get(p.id)!)
-        throw new AppError('INSUFFICIENT_STOCK', `Only ${p.stock_quantity} ${p.unit} of ${p.name} left.`, { detail: { product_id: p.id, name: p.name, unit: p.unit, available: p.stock_quantity, requested: needed.get(p.id) } });
+        throw new AppError('INSUFFICIENT_STOCK', `Only ${quantity(p.stock_quantity, p.unit)} of ${p.name} left.`, { detail: { product_id: p.id, name: p.name, unit: p.unit, available: p.stock_quantity, requested: needed.get(p.id) } });
       return { p, qty: it.quantity, price };
     });
     const total = round2(lines.reduce((a, l) => a + l.qty * l.price, 0));

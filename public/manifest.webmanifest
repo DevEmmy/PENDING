@@ -1,0 +1,13 @@
+{
+  "name": "Vendora — Talk to your shop",
+  "short_name": "Vendora",
+  "description": "Voice-first business assistant and vendor network for Nigerian traders.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b2563",
+  "theme_color": "#0b2563",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

@@ -4,9 +4,9 @@
   "description": "Vendora — voice-first business assistant and vendor network for Nigerian traders",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "tsc --noEmit && vite build",
     "preview": "vite preview",
-    "typecheck": "tsc -b --noEmit",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "vitest run",
     "test:db": "bash supabase/tests/run-local.sh"
